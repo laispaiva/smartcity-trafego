@@ -49,6 +49,13 @@
 
     <hr class="my-5">
 
+    <div class="mb-3 d-flex">
+        <input type="text" class="form-control me-2" id="search-id" placeholder="Buscar por ID">
+        <button class="btn btn-outline-primary" onclick="buscarPorId()">Buscar</button>
+        <button class="btn btn-outline-secondary ms-2" onclick="carregarOcorrencias()">Limpar</button>
+    </div>
+    
+
     <h2 class="mb-3">Lista de Ocorrências</h2>
     <table class="table table-bordered" id="ocorrencia-table">
         <thead>
@@ -109,6 +116,32 @@
                 tableBody.innerHTML += row;
             });
         }
+
+        async function buscarPorId() {
+            const id = document.getElementById('search-id').value;
+            if (!id) return;
+
+            const response = await fetch(`${apiUrl}/${id}`);
+            if (!response.ok) {
+                alert("Ocorrência não encontrada.");
+                return;
+            }
+
+            const ocorrencia = await response.json();
+            tableBody.innerHTML = `
+                <tr>
+                    <td>${ocorrencia.id}</td>
+                    <td>${ocorrencia.tipoOcorrencia}</td>
+                    <td>${ocorrencia.descricao}</td>
+                    <td>${ocorrencia.dataHora}</td>
+                    <td>${ocorrencia.localizacao}</td>
+                    <td>${ocorrencia.gravidade}</td>
+                    <td>
+                        <button class="btn btn-danger btn-sm" onclick="deletarOcorrencia(${ocorrencia.id})">Excluir</button>
+                    </td>
+                </tr>`;
+        }
+
 
         async function deletarOcorrencia(id) {
             await fetch(`${apiUrl}/${id}`, { method: 'DELETE' });

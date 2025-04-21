@@ -38,6 +38,12 @@ public class RegistroOcorrenciaService {
                 .collect(Collectors.toList());
     }
 
+    public java.util.Optional<RegistroOcorrenciaResponseDto> buscarPorId(Long id) {
+        return repository.findById(id)
+                .map(RegistroOcorrenciaResponseDto::new);
+    }
+    
+
     public RegistroOcorrenciaResponseDto atualizar(Long id, RegistroOcorrenciaUpdateDto dto) {
         RegistroOcorrencia ocorrencia = repository.findById(id).orElseThrow();
         ocorrencia.setTipoOcorrencia(dto.getTipoOcorrencia());

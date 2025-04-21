@@ -42,6 +42,12 @@
     <hr class="my-5">
 
     <h2 class="mb-3">Lista de Veículos</h2>
+    <div class="mb-3 d-flex">
+        <input type="text" class="form-control me-2" id="search-id" placeholder="Buscar por ID">
+        <button class="btn btn-outline-primary" onclick="buscarPorId()">Buscar</button>
+        <button class="btn btn-outline-secondary ms-2" onclick="carregarVeiculos()">Limpar</button>
+    </div>
+    
     <table class="table table-bordered" id="veiculo-table">
         <thead>
             <tr>
@@ -78,6 +84,31 @@
             form.reset();
             carregarVeiculos();
         });
+
+        async function buscarPorId() {
+    const id = document.getElementById('search-id').value;
+    if (!id) return;
+
+    const response = await fetch(`${apiUrl}/${id}`);
+    if (!response.ok) {
+        alert("Veículo não encontrado.");
+        return;
+    }
+
+    const veiculo = await response.json();
+    tableBody.innerHTML = `
+        <tr>
+            <td>${veiculo.id}</td>
+            <td>${veiculo.placa}</td>
+            <td>${veiculo.tipo}</td>
+            <td>${veiculo.cor}</td>
+            <td>${veiculo.velocidadeRegistrada}</td>
+            <td>
+                <button class="btn btn-danger btn-sm" onclick="deletarVeiculo(${veiculo.id})">Excluir</button>
+            </td>
+        </tr>`;
+}
+
 
         async function carregarVeiculos() {
             const response = await fetch(apiUrl);

@@ -36,6 +36,14 @@
     <hr class="my-5">
 
     <h2 class="mb-3">Lista de Registros</h2>
+    
+    <div class="mb-3 d-flex">
+        <input type="text" class="form-control me-2" id="search-id" placeholder="Buscar por ID">
+        <button class="btn btn-outline-primary" onclick="buscarPorId()">Buscar</button>
+        <button class="btn btn-outline-secondary ms-2" onclick="carregarRegistros()">Limpar</button>
+    </div>
+    
+
     <table class="table table-bordered" id="trafego-table">
         <thead>
             <tr>
@@ -93,6 +101,31 @@
                 tableBody.innerHTML += row;
             });
         }
+
+        async function buscarPorId() {
+            const id = document.getElementById('search-id').value;
+            if (!id) return;
+
+            const response = await fetch(`${apiUrl}/${id}`);
+            if (!response.ok) {
+                alert("Registro de tráfego não encontrado.");
+                return;
+            }
+
+            const registro = await response.json();
+            tableBody.innerHTML = `
+                <tr>
+                    <td>${registro.id}</td>
+                    <td>${registro.dataHora}</td>
+                    <td>${registro.velocidade}</td>
+                    <td>${registro.sensorId}</td>
+                    <td>${registro.veiculoId}</td>
+                    <td>
+                        <button class="btn btn-danger btn-sm" onclick="deletarRegistro(${registro.id})">Excluir</button>
+                    </td>
+                </tr>`;
+        }
+
 
         async function deletarRegistro(id) {
             await fetch(`${apiUrl}/${id}`, { method: 'DELETE' });

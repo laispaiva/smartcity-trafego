@@ -37,6 +37,12 @@
     <hr class="my-5">
 
     <h2 class="mb-3">Lista de Sensores</h2>
+    <div class="mb-3 d-flex">
+        <input type="text" class="form-control me-2" id="search-id" placeholder="Buscar por ID">
+        <button class="btn btn-outline-primary" onclick="buscarPorId()">Buscar</button>
+        <button class="btn btn-outline-secondary ms-2" onclick="carregarSensores()">Limpar</button>
+    </div>
+    
     <table class="table table-bordered" id="sensor-table">
         <thead>
             <tr>
@@ -69,6 +75,29 @@
             form.reset();
             carregarSensores();
         });
+
+        async function buscarPorId() {
+            const id = document.getElementById('search-id').value;
+            if (!id) return;
+
+            const response = await fetch(`${apiUrl}/${id}`);
+            if (!response.ok) {
+                alert("Sensor não encontrado.");
+                return;
+            }
+
+            const sensor = await response.json();
+            tableBody.innerHTML = `
+                <tr>
+                    <td>${sensor.id}</td>
+                    <td>${sensor.localizacao}</td>
+                    <td>${sensor.status}</td>
+                    <td>
+                        <button class="btn btn-danger btn-sm" onclick="deletarSensor(${sensor.id})">Excluir</button>
+                    </td>
+                </tr>`;
+        }
+
 
         async function carregarSensores() {
             const response = await fetch(apiUrl);
