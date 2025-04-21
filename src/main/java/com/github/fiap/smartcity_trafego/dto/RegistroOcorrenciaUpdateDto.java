@@ -1,20 +1,15 @@
-package com.github.fiap.smartcity_trafego.model;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import lombok.*;
+package com.github.fiap.smartcity_trafego.dto;
 
 import java.time.LocalDateTime;
 
-@Entity
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
-@ToString
-public class RegistroOcorrencia {
-
-    @Id
-    private String id;
-
+public class RegistroOcorrenciaUpdateDto {
     private String tipoOcorrencia;
     private String descricao;
     private LocalDateTime dataHora;
