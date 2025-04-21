@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Registro de Tráfego</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+</head>
+<body class="container py-4">
+
+    <div id="menu-placeholder"></div>
+
+    <h1 class="mb-4">Cadastro de Registro de Tráfego</h1>
+
+    <form id="trafego-form" class="row g-3">
+        <div class="col-md-3">
+            <label for="veiculoId" class="form-label">ID do Veículo</label>
+            <input type="number" class="form-control" id="veiculoId" required>
+        </div>
+        <div class="col-md-3">
+            <label for="sensorId" class="form-label">ID do Sensor</label>
+            <input type="number" class="form-control" id="sensorId" required>
+        </div>
+        <div class="col-md-3">
+            <label for="dataHora" class="form-label">Data e Hora</label>
+            <input type="datetime-local" class="form-control" id="dataHora" required>
+        </div>
+        <div class="col-md-3">
+            <label for="velocidade" class="form-label">Velocidade</label>
+            <input type="text" class="form-control" id="velocidade" required>
+        </div>
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Cadastrar Registro</button>
+        </div>
+    </form>
+
+    <hr class="my-5">
+
+    <h2 class="mb-3">Lista de Registros</h2>
+    <table class="table table-bordered" id="trafego-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Data e Hora</th>
+                <th>Velocidade</th>
+                <th>ID Sensor</th>
+                <th>ID Veículo</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+        const apiUrl = 'http://localhost:8080/registros-trafego';
+
+        const form = document.getElementById('trafego-form');
+        const tableBody = document.querySelector('#trafego-table tbody');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const veiculoId = document.getElementById('veiculoId').value;
+            const sensorId = document.getElementById('sensorId').value;
+            const dataHora = document.getElementById('dataHora').value;
+            const velocidade = document.getElementById('velocidade').value;
+
+            await fetch(apiUrl, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ veiculoId, sensorId, dataHora, velocidade })
+            });
+
+            form.reset();
+            carregarRegistros();
+        });
+
+        async function carregarRegistros() {
+            const response = await fetch(apiUrl);
+            const registros = await response.json();
+
+            tableBody.innerHTML = '';
+            registros.forEach(reg => {
+                const row = `
+                    <tr>
+                        <td>${reg.id}</td>
+                        <td>${new Date(reg.dataHora).toLocaleString('pt-BR')}</td>
+                        <td>${reg.velocidade}</td>
+                        <td>${reg.sensorId}</td>
+                        <td>${reg.veiculoId}</td>
+                        <td>
+                            <button class="btn btn-danger btn-sm" onclick="deletarRegistro(${reg.id})">Excluir</button>
+                        </td>
+                    </tr>`;
+                tableBody.innerHTML += row;
+            });
+        }
+
+        async function deletarRegistro(id) {
+            await fetch(`${apiUrl}/${id}`, { method: 'DELETE' });
+            carregarRegistros();
+        }
+
+        carregarRegistros();
+    </script>
+
+    <script>
+        // Carrega o menu externo
+        fetch('menu.html')
+            .then(res => res.text())
+            .then(data => document.getElementById('menu-placeholder').innerHTML = data);
+    </script>
+</body>
+</html>

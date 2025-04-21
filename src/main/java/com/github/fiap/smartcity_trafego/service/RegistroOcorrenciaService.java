@@ -19,19 +19,18 @@ public class RegistroOcorrenciaService {
     private RegistroOcorrenciaRepository repository;
 
     public RegistroOcorrenciaResponseDto cadastrar(RegistroOcorrenciaCreateDto dto) {
-        
-        String id = UUID.randomUUID().toString();
-        RegistroOcorrencia ocorrencia = new RegistroOcorrencia(
-            id,
-            dto.getTipoOcorrencia(),
-            dto.getDescricao(),
-            dto.getDataHora(),
-            dto.getLocalizacao(),
-            dto.getGravidade()
-        );
+        RegistroOcorrencia ocorrencia = RegistroOcorrencia.builder()
+            .tipoOcorrencia(dto.getTipoOcorrencia())
+            .descricao(dto.getDescricao())
+            .dataHora(dto.getDataHora())
+            .localizacao(dto.getLocalizacao())
+            .gravidade(dto.getGravidade())
+            .build();
+    
         repository.save(ocorrencia);
         return new RegistroOcorrenciaResponseDto(ocorrencia);
     }
+    
 
     public List<RegistroOcorrenciaResponseDto> listar() {
         return repository.findAll().stream()
@@ -39,7 +38,7 @@ public class RegistroOcorrenciaService {
                 .collect(Collectors.toList());
     }
 
-    public RegistroOcorrenciaResponseDto atualizar(String id, RegistroOcorrenciaUpdateDto dto) {
+    public RegistroOcorrenciaResponseDto atualizar(Long id, RegistroOcorrenciaUpdateDto dto) {
         RegistroOcorrencia ocorrencia = repository.findById(id).orElseThrow();
         ocorrencia.setTipoOcorrencia(dto.getTipoOcorrencia());
         ocorrencia.setDescricao(dto.getDescricao());
@@ -50,7 +49,7 @@ public class RegistroOcorrenciaService {
         return new RegistroOcorrenciaResponseDto(ocorrencia);
     }
 
-    public void deletar(String id) {
+    public void deletar(Long id) {
         repository.deleteById(id);
     }
 }

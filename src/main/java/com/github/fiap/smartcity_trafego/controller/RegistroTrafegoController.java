@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/registro-trafego")
+@RequestMapping("/registros-trafego")
 @RequiredArgsConstructor
 public class RegistroTrafegoController {
 

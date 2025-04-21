@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/registro-ocorrencias")
+@RequestMapping("/registro-ocorrencia")
 public class RegistroOcorrenciaController {
 
     @Autowired
@@ -27,12 +27,12 @@ public class RegistroOcorrenciaController {
     }
 
     @PutMapping("/{id}")
-    public RegistroOcorrenciaResponseDto atualizar(@PathVariable String id, @RequestBody RegistroOcorrenciaUpdateDto dto) {
+    public RegistroOcorrenciaResponseDto atualizar(@PathVariable Long id, @RequestBody RegistroOcorrenciaUpdateDto dto) {
         return service.atualizar(id, dto);
     }
 
     @DeleteMapping("/{id}")
-    public void deletar(@PathVariable String id) {
+    public void deletar(@PathVariable Long id) {
         service.deletar(id);
     }
 }
