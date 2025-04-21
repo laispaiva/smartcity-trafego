@@ -31,15 +31,17 @@ jobs:
     deploy:
         runs-on: ubuntu-latest
         needs: build
-        
 
         steps:
-            - name: Deploy to Azure Web App
-              id: deploy-to-webapp
-              uses: azure/webapps-deploy@v3
-
+            - name: Azure CLI Login
+              uses: azure/login@v1
               with:
-                app-name: 'smartcity-trafego'
-                slot-name: 'production'
-                publish-profile: ${{ secrets.AZURE_PROFILE }}
-                images: 'index.docker.io/${{ secrets.DOCKERHUB_USERNAME }}/smartcity-trafego:${{ github.sha }}'
+                creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+            - name: Deploy Docker image to Web App
+              run: |
+                az webapp config container set \
+                  --name smartcity-trafego \
+                  --resource-group rs-fiap-on \
+                  --docker-custom-image-name laispw/smartcity-trafego:${{ github.sha }} \
+                  --docker-registry-server-url https://index.docker.io
