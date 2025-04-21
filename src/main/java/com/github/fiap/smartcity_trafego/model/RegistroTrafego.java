@@ -1,9 +1,9 @@
 package com.github.fiap.smartcity_trafego.model;
 
-import java.time.LocalDateTime;
-
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Getter @Setter
@@ -15,9 +15,13 @@ public class RegistroTrafego {
     private Long id;
 
     private LocalDateTime dataHora;
-
-    private String local;
+    private String velocidade;
 
     @ManyToOne
+    @JoinColumn(name = "sensor_id")
+    private Sensor sensor;
+
+    @ManyToOne
+    @JoinColumn(name = "veiculo_id")
     private Veiculo veiculo;
 }
