@@ -16,7 +16,7 @@ COPY --from=build  /opt/app/target/app.jar /opt/app/app.jar
 
 WORKDIR /opt/app
 
-ENV PROFILE=prd
+#ENV PROFILE=prd
 
 EXPOSE 8080
 
