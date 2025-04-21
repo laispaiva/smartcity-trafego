@@ -42,4 +42,4 @@ jobs:
                 app-name: 'smartcity-trafego'
                 slot-name: 'production'
                 publish-profile: ${{ secrets.AZURE_PROFILE }}
-                images: 'index.docker.io/laispw/smartcity-trafego:latest'
+                images: 'index.docker.io/${{ secrets.DOCKERHUB_USERNAME }}/smartcity-trafego:${{ github.sha }}'
