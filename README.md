@@ -90,22 +90,11 @@ Tecnologia: **Docker**
 
 ### Produção (Azure Web App):
 - [`https://smartcity-trafego-a3bua2aue5hnbzfd.eastus2-01.azurewebsites.net`](https://smartcity-trafego-a3bua2aue5hnbzfd.eastus2-01.azurewebsites.net)
-  - `/swagger-ui/index.html`
-  - `/sensor.html`
-  - `/veiculo.html`
-  - `/registro-trafego.html`
-  - `/registro-ocorrencia.html`
-
----
-
-## 📸 Prints recomendados para documentação
-
-- ✅ GitHub Actions executando build e deploy
-- ✅ Docker Hub com imagem publicada
-- ✅ Azure Web App configurado (portal + container logs)
-- ✅ Swagger com todos os endpoints disponíveis
-- ✅ Todas as interfaces HTML funcionando localmente e em produção
-- ✅ Testes rodando com sucesso
+  - [`/swagger-ui/index.html`](https://smartcity-trafego-a3bua2aue5hnbzfd.eastus2-01.azurewebsites.net/swagger-ui/index.html)
+  - [`/sensor.html`](https://smartcity-trafego-a3bua2aue5hnbzfd.eastus2-01.azurewebsites.net/swagger-ui/sensor.html)
+  - [`/veiculo.html`](https://smartcity-trafego-a3bua2aue5hnbzfd.eastus2-01.azurewebsites.net/swagger-ui/veiculo.html)
+  - [`/registro-trafego.html`](https://smartcity-trafego-a3bua2aue5hnbzfd.eastus2-01.azurewebsites.net/swagger-ui/registro-trafego.html)
+  - [`/registro-ocorrencia.html`](https://smartcity-trafego-a3bua2aue5hnbzfd.eastus2-01.azurewebsites.net/swagger-ui/registro-ocorrencia.html)
 
 ---
 
@@ -122,5 +111,5 @@ Tecnologia: **Docker**
 
 ---
 
-Desenvolvido por: **Seu Nome Aqui**  
-[GitHub](https://github.com/seu-usuario)
+Desenvolvido por: **Lais Paiva**  
+[GitHub](https://github.com/laispaiva)
