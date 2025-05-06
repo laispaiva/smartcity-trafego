@@ -90,7 +90,7 @@ Tecnologia: **Docker**
 
 ### Produção (Azure Web App):
 - [`https://smartcity-trafego-a3bua2aue5hnbzfd.eastus2-01.azurewebsites.net`](https://smartcity-trafego-a3bua2aue5hnbzfd.eastus2-01.azurewebsites.net)
-  - [`/swagger-ui/index.html`](https://smartcity-trafego-a3bua2aue5hnbzfd.eastus2-01.azurewebsites.net/index.html)
+  - [`/swagger-ui/index.html`](https://smartcity-trafego-a3bua2aue5hnbzfd.eastus2-01.azurewebsites.net/swagger-ui/index.html)
   - [`/sensor.html`](https://smartcity-trafego-a3bua2aue5hnbzfd.eastus2-01.azurewebsites.net/sensor.html)
   - [`/veiculo.html`](https://smartcity-trafego-a3bua2aue5hnbzfd.eastus2-01.azurewebsites.net/veiculo.html)
   - [`/registro-trafego.html`](https://smartcity-trafego-a3bua2aue5hnbzfd.eastus2-01.azurewebsites.net/registro-trafego.html)
